@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/Snip20180815_1.png">
 <meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG110.png">
-<meta property="og:updated_time" content="2018-08-15T08:04:23.365Z">
+<meta property="og:updated_time" content="2018-08-15T08:57:52.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GoogleMap中加载KML文件">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;KML 是一种文件格式，用于在 Google 地球浏览器（Google 地球、Google 地图和 Google 地图移动版）中显示地理数据。 使用基于标记的结构，含有嵌套的元素和属性，并符合 XML 标准。 使用引入&amp;emsp;&amp;emsp;iOS原本Pod的GoogleMaps中是不支持 KML 的，要先从这里下载”Geometry”文件, 将Geometry文件夹放入项">
@@ -164,7 +164,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">赤剧永恒我演笨贼</p>
+        <p class="site-subtitle">涓滴意念</p>
       
   </div>
 
@@ -304,8 +304,7 @@
 
       
         <p>&emsp;&emsp;KML 是一种文件格式，用于在 Google 地球浏览器（Google 地球、Google 地图和 Google 地图移动版）中显示地理数据。 使用基于标记的结构，含有嵌套的元素和属性，并符合 XML 标准。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>&emsp;&emsp;iOS原本Pod的GoogleMaps中是不支持 KML 的，<a href="https://github.com/googlemaps/google-maps-ios-utils" target="_blank" rel="noopener">要先从这里下载”Geometry”文件</a>, 将Geometry文件夹放入项目.</p>
-<p> <img src="http://pd5ciqjnn.bkt.clouddn.com/Snip20180815_1.png" alt="将Geometry文件夹放入项目"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>&emsp;&emsp;iOS原本Pod的GoogleMaps中是不支持 KML 的，<a href="https://github.com/googlemaps/google-maps-ios-utils" target="_blank" rel="noopener">要先从这里下载”Geometry”文件</a>, 将Geometry文件夹放入项目.<br><a id="more"></a><br> <img src="http://pd5ciqjnn.bkt.clouddn.com/Snip20180815_1.png" alt="将Geometry文件夹放入项目"></p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>&emsp;&emsp;加入到地图很简单：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *path = [<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"KML文件名"</span> ofType:<span class="string">@"kml"</span>];</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> fileURLWithPath:path];</span><br><span class="line">GMUKMLParser *parser = [[GMUKMLParser alloc] initWithURL:url];</span><br><span class="line">[parser parse];</span><br><span class="line">GMUGeometryRenderer *renderer = [[GMUGeometryRenderer alloc] initWithMap:你的谷歌地图</span><br><span class="line">                                                              geometries:parser.placemarks</span><br><span class="line">                                                                  styles:parser.styles];</span><br><span class="line">[renderer render];</span><br></pre></td></tr></table></figure>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG110.png" width="200" height="300" alt="一个跑步比赛路线的效果" align="center"></p>
@@ -418,7 +417,7 @@
                 alt="INnoVation" />
             
               <p class="site-author-name" itemprop="name">INnoVation</p>
-              <p class="site-description motion-element" itemprop="description">涓滴意念</p>
+              <p class="site-description motion-element" itemprop="description">赤剧永恒我演笨贼</p>
           </div>
 
           <nav class="site-state motion-element">
