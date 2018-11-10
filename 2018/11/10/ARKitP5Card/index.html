@@ -79,17 +79,26 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果: your browser does not support the video tag   这里是完整的代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/08/08/hello-world/index.html">
+<meta property="og:title" content="ARKit明信片">
+<meta property="og:url" content="http://yoursite.com/2018/11/10/ARKitP5Card/index.html">
 <meta property="og:site_name" content="INnoVation的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果: your browser does not support the video tag   这里是完整的代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T15:41:04.878Z">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG187.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG188.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG189.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG193.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG194.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG195.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG196.jpeg">
+<meta property="og:image" content="http://pd5ciqjnn.bkt.clouddn.com/p5WechatIMG197.jpeg">
+<meta property="og:updated_time" content="2018-11-10T13:05:37.382Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="ARKit明信片">
+<meta name="twitter:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果: your browser does not support the video tag   这里是完整的代码">
+<meta name="twitter:image" content="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG187.jpeg">
 
 
 
@@ -119,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/08/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/10/ARKitP5Card/"/>
 
 
 
 
 
-  <title>Hello World | INnoVation的博客</title>
+  <title>ARKit明信片 | INnoVation的博客</title>
   
 
 
@@ -232,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/ARKitP5Card/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="INnoVation">
@@ -249,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">ARKit明信片</h1>
         
 
         <div class="post-meta">
@@ -261,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T23:41:04+08:00">
-                2018-08-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T14:00:44+08:00">
+                2018-11-10
               </time>
             
 
@@ -299,15 +308,22 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.<br>先看最后的效果:</p>
+<video src="http://pd5ciqjnn.bkt.clouddn.com/1541852508082239.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"><br>your browser does not support the video tag<br></video>
+
+
+<p><a href="https://github.com/googlemaps/google-maps-ios-utils" target="_blank" rel="noopener">这里是完整的代码</a></p>
+<a id="more"></a>
+<h2 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h2><p>按照平时的项目那样创建就行,别忘了加上相机权限.<br>之后</p>
+<h4 id="1-创建AR-Resources"><a href="#1-创建AR-Resources" class="headerlink" title="1.创建AR Resources"></a>1.创建AR Resources</h4><p> <img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG187.jpeg" alt="创建AR Resources"></p>
+<h4 id="2-将要识别的图片放进去"><a href="#2-将要识别的图片放进去" class="headerlink" title="2.将要识别的图片放进去"></a>2.将要识别的图片放进去</h4><p> <img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG188.jpeg" alt="将要识别的图片放进去"><br> 这里有一个警告,是要让你输入图片的宽高</p>
+<h4 id="3-输入宽高"><a href="#3-输入宽高" class="headerlink" title="3.输入宽高"></a>3.输入宽高</h4><p> <img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG189.jpeg" alt="输入宽高"><br> 输入一项后另一项会帮你算好.</p>
+<h4 id="4-初始代码"><a href="#4-初始代码" class="headerlink" title="4.初始代码"></a>4.初始代码</h4><p><img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG193.jpeg" alt="没什么好讲的"></p>
+<h2 id="识别图片-加入一个rootNode"><a href="#识别图片-加入一个rootNode" class="headerlink" title="识别图片,加入一个rootNode"></a>识别图片,加入一个rootNode</h2><p>这里实现 func renderer(_ renderer: , didAdd node: , for anchor: ) 方法<br><img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG194.jpeg" alt=""><br>识别出图片后,我们将一个平面覆盖在卡片上, “UIColor.clear” 可以先换成 “UIColor.red” 方便观察</p>
+<h2 id="加入视频-图片-文字-网页-动画"><a href="#加入视频-图片-文字-网页-动画" class="headerlink" title="加入视频 图片 文字 网页 动画"></a>加入视频 图片 文字 网页 动画</h2><p>创建一个方法工厂,在里面分别实现了 视频 图片 文字 网页</p>
+<p><img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG195.jpeg" alt=""><br><img src="http://pd5ciqjnn.bkt.clouddn.com/WechatIMG196.jpeg" alt=""></p>
+<p>关于网页,这里我用的是 UIWebView 而不是 WKWebView, 后者虽然更强大但尚未得到支持.放进Node里无法出现.</p>
+<p>关于动画 有两种方式实现  SCNAction 和 CABasicAnimation, 前者更为便捷.<br><img src="http://pd5ciqjnn.bkt.clouddn.com/p5WechatIMG197.jpeg" alt=""></p>
 
       
     </div>
@@ -332,15 +348,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/10/31/“1001”/" rel="next" title="1001">
+                <i class="fa fa-chevron-left"></i> 1001
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/15/GoogleMap中加载kml文件/" rel="prev" title="GoogleMap中加载KML文件">
-                GoogleMap中加载KML文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -467,7 +483,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目创建"><span class="nav-number">1.</span> <span class="nav-text">项目创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建AR-Resources"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.创建AR Resources</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将要识别的图片放进去"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.将要识别的图片放进去</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-输入宽高"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.输入宽高</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-初始代码"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.初始代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别图片-加入一个rootNode"><span class="nav-number">2.</span> <span class="nav-text">识别图片,加入一个rootNode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入视频-图片-文字-网页-动画"><span class="nav-number">3.</span> <span class="nav-text">加入视频 图片 文字 网页 动画</span></a></li></ol></div>
             
 
           </div>
