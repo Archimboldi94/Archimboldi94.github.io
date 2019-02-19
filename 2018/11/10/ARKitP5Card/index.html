@@ -79,27 +79,27 @@
 
 
 
-<meta name="description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  GIF加载较慢 https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif 这里是完整的代码">
+<meta name="description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  这里是完整的代码">
 <meta name="keywords" content="ARKit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARKit明信片">
 <meta property="og:url" content="http://yoursite.com/2018/11/10/ARKitP5Card/index.html">
 <meta property="og:site_name" content="INnoVation的博客">
-<meta property="og:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  GIF加载较慢 https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif 这里是完整的代码">
+<meta property="og:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  这里是完整的代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-861109ce0ba0692e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-d3b2c57d11fcd9ae.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-3416136af7016269.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-93d586251ca67bf7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-e40a92e4d4d4cb48.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-2abb66f9b4b2d9f4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V12yBgTU0Zqrm6/q4fU8wW5ox0A6xPQuoOFJ6vEnS*ufLKEvDEUrqYI8tE!/b/dL8AAAAAAAAA&bo=4ADgAeAA4AECmb0!&rf=viewer_4">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/G5uIh45nwvhvzJCZczepL*HkIdedfqBXK9OWvrfpeUw!/r/dLYAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/tbvKTIzNhzXfSDS8RVRfQZyYpV.8UzCIZLMiJiGWlp4!/r/dLkAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/DE*Y5ZlXBDAFSIpOVSw3r06LFZzCi4VDMfaRpOE5SKE!/r/dL8AAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/5Xc6sitj0HDXtTDT6KO9vSpotdm4Cj5g7bIFiB1RejI!/r/dMAAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/ON6VrZAR7S*wZB9*odpwGa7Y3yHXGb9jFFg*R3CXRCU!/r/dD4BAAAAAAAA">
+<meta property="og:image" content="http://s191.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/.2HV1XuCMkEfFwVluS9ezqxlVBWhJ2sAkEfoYxEv96Y!/b/dL8AAAAAAAAA">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1861592-b6d1a2b9a2e92da3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-02-19T14:57:02.835Z">
+<meta property="og:updated_time" content="2019-02-19T15:33:02.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARKit明信片">
-<meta name="twitter:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  GIF加载较慢 https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif 这里是完整的代码">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif">
+<meta name="twitter:description" content="ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.先看最后的效果:  这里是完整的代码">
+<meta name="twitter:image" content="http://m.qpic.cn/psb?/V12yBgTU0Zqrm6/q4fU8wW5ox0A6xPQuoOFJ6vEnS*ufLKEvDEUrqYI8tE!/b/dL8AAAAAAAAA&bo=4ADgAeAA4AECmb0!&rf=viewer_4">
 
 
 
@@ -247,7 +247,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="INnoVation">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://upload-images.jianshu.io/upload_images/1861592-5633d11a7304cb26.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+      <meta itemprop="image" content="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/1fbi4Bemu8MlEBB8hRxiCbSJMpEcoCR81ITEPgxOIis!/r/dD4BAAAAAAAA">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -309,17 +309,17 @@
       
 
       
-        <p>ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.<br>先看最后的效果:<br> <img src="https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif" alt=""><br> <a href="https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif" target="_blank" rel="noopener">GIF加载较慢 https://upload-images.jianshu.io/upload_images/4510309-9ddca070b0ce3996.gif</a></p>
+        <p>ARKit在iOS12中更新到了2.0,其中有项新增功能是图片追踪.我们可以搭配先前的图片识别能力来写一个明信片的效果.<br>先看最后的效果:<br> <img src="http://m.qpic.cn/psb?/V12yBgTU0Zqrm6/q4fU8wW5ox0A6xPQuoOFJ6vEnS*ufLKEvDEUrqYI8tE!/b/dL8AAAAAAAAA&amp;bo=4ADgAeAA4AECmb0!&amp;rf=viewer_4" alt=""></p>
 <p><strong><a href="https://github.com/Archimboldi94/ARCard" target="_blank" rel="noopener">这里是完整的代码</a></strong></p>
 <a id="more"></a>
 <h2 id="项目创建"><a href="#项目创建" class="headerlink" title="项目创建"></a>项目创建</h2><p>按照平时的项目那样创建就行,别忘了加上相机权限.<br>之后</p>
-<h3 id="创建AR-Resources"><a href="#创建AR-Resources" class="headerlink" title="创建AR Resources"></a>创建AR Resources</h3><p> <img src="https://upload-images.jianshu.io/upload_images/1861592-861109ce0ba0692e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建AR Resources"></p>
-<h3 id="将要识别的图片放进去"><a href="#将要识别的图片放进去" class="headerlink" title="将要识别的图片放进去"></a>将要识别的图片放进去</h3><p> <img src="https://upload-images.jianshu.io/upload_images/1861592-d3b2c57d11fcd9ae.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将要识别的图片放进去"><br> 这里有一个警告,是要让你输入图片的宽高</p>
-<h3 id="输入宽高"><a href="#输入宽高" class="headerlink" title="输入宽高"></a>输入宽高</h3><p> <img src="https://upload-images.jianshu.io/upload_images/1861592-3416136af7016269.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入宽高"><br> 输入一项后另一项会帮你算好.</p>
-<h3 id="初始代码"><a href="#初始代码" class="headerlink" title="初始代码"></a>初始代码</h3><p><img src="https://upload-images.jianshu.io/upload_images/1861592-93d586251ca67bf7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没什么好讲的"></p>
-<h2 id="识别图片-加入一个rootNode"><a href="#识别图片-加入一个rootNode" class="headerlink" title="识别图片,加入一个rootNode"></a>识别图片,加入一个rootNode</h2><p>这里实现 <strong>func renderer(_ renderer: , didAdd node: , for anchor: )</strong>方法<br><img src="https://upload-images.jianshu.io/upload_images/1861592-e40a92e4d4d4cb48.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>识别出图片后,我们将一个平面覆盖在卡片上, <strong>“UIColor.clear”</strong> 可以先换成 <strong>“UIColor.red”</strong> 方便观察</p>
+<h3 id="创建AR-Resources"><a href="#创建AR-Resources" class="headerlink" title="创建AR Resources"></a>创建AR Resources</h3><p> <img src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/G5uIh45nwvhvzJCZczepL*HkIdedfqBXK9OWvrfpeUw!/r/dLYAAAAAAAAA" alt="创建AR Resources"></p>
+<h3 id="将要识别的图片放进去"><a href="#将要识别的图片放进去" class="headerlink" title="将要识别的图片放进去"></a>将要识别的图片放进去</h3><p> <img src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/tbvKTIzNhzXfSDS8RVRfQZyYpV.8UzCIZLMiJiGWlp4!/r/dLkAAAAAAAAA" alt="将要识别的图片放进去"><br> 这里有一个警告,是要让你输入图片的宽高</p>
+<h3 id="输入宽高"><a href="#输入宽高" class="headerlink" title="输入宽高"></a>输入宽高</h3><p> <img src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/DE*Y5ZlXBDAFSIpOVSw3r06LFZzCi4VDMfaRpOE5SKE!/r/dL8AAAAAAAAA" alt="输入宽高"><br> 输入一项后另一项会帮你算好.</p>
+<h3 id="初始代码"><a href="#初始代码" class="headerlink" title="初始代码"></a>初始代码</h3><p><img src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/5Xc6sitj0HDXtTDT6KO9vSpotdm4Cj5g7bIFiB1RejI!/r/dMAAAAAAAAAA" alt="没什么好讲的"></p>
+<h2 id="识别图片-加入一个rootNode"><a href="#识别图片-加入一个rootNode" class="headerlink" title="识别图片,加入一个rootNode"></a>识别图片,加入一个rootNode</h2><p>这里实现 <strong>func renderer(_ renderer: , didAdd node: , for anchor: )</strong>方法<br><img src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/ON6VrZAR7S*wZB9*odpwGa7Y3yHXGb9jFFg*R3CXRCU!/r/dD4BAAAAAAAA" alt=""><br>识别出图片后,我们将一个平面覆盖在卡片上, <strong>“UIColor.clear”</strong> 可以先换成 <strong>“UIColor.red”</strong> 方便观察</p>
 <h2 id="加入视频-图片-文字-网页-动画"><a href="#加入视频-图片-文字-网页-动画" class="headerlink" title="加入视频 图片 文字 网页 动画"></a>加入视频 图片 文字 网页 动画</h2><p>创建一个方法工厂,在里面分别实现了 视频 图片 文字 网页,<br>具体的代码都在Demo中的 <strong>P5Nodes.swift</strong>里</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1861592-2abb66f9b4b2d9f4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://s191.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/.2HV1XuCMkEfFwVluS9ezqxlVBWhJ2sAkEfoYxEv96Y!/b/dL8AAAAAAAAA" alt=""></p>
 <p>关于网页,这里我用的是 <strong>UIWebView</strong> 而不是 <strong>WKWebView</strong>, 后者虽然更强大但尚未得到支持.放进Node里无法出现.</p>
 <p>关于动画 有两种方式实现  <strong>SCNAction</strong> 和 <strong>CABasicAnimation</strong>, 前者更为便捷.<br><img src="https://upload-images.jianshu.io/upload_images/1861592-b6d1a2b9a2e92da3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 
@@ -427,7 +427,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://upload-images.jianshu.io/upload_images/1861592-5633d11a7304cb26.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                src="http://r.photo.store.qq.com/psb?/V12yBgTU0Zqrm6/1fbi4Bemu8MlEBB8hRxiCbSJMpEcoCR81ITEPgxOIis!/r/dD4BAAAAAAAA"
                 alt="INnoVation" />
             
               <p class="site-author-name" itemprop="name">INnoVation</p>
