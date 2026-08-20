@@ -1,4 +1,4 @@
-/* 单页应用控制器：负责路由、学习进度、课程渲染与互动实验室。 */
+/* 单页应用控制器：负责路由、课程渲染与互动实验室。 */
 (function () {
   const course = window.CourseData;
   const lessons = [...window.StageOneLessons, ...window.StageTwoLessons, ...window.StageThreeLessons];
@@ -9,40 +9,11 @@
   let rhythmTimer = null;
   let rhythmStep = 0;
 
-  const state = loadState();
-
-  function loadState() {
-    try {
-      return Object.assign({ completed: [], practiceChecks: {}, lastLesson: '1-1', practiceMinutes: 30 }, JSON.parse(localStorage.getItem('guitar-path-state') || '{}'));
-    } catch (_) {
-      return { completed: [], practiceChecks: {}, lastLesson: '1-1', practiceMinutes: 30 };
-    }
-  }
-
-  function saveState() {
-    localStorage.setItem('guitar-path-state', JSON.stringify(state));
-    updateGlobalProgress();
-  }
-
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
     clearTimeout(showToast.timer);
     showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
-  }
-
-  function completedCount() {
-    return state.completed.length;
-  }
-
-  function updateGlobalProgress() {
-    const count = completedCount();
-    document.getElementById('sidebar-progress-text').textContent = `${count} / ${course.totalLessons}`;
-    document.getElementById('sidebar-progress-bar').style.width = `${Math.min(100, count / course.totalLessons * 100)}%`;
-  }
-
-  function currentLesson() {
-    return lessons.find(item => !state.completed.includes(item.id)) || lessons[lessons.length - 1];
   }
 
   function stageLessons(stageId) {
@@ -68,34 +39,25 @@
   }
 
   function renderHome() {
-    const next = currentLesson();
-    const activeStageLessons = stageLessons(next.stage);
-    const count = completedCount();
-    const percent = Math.round(count / course.totalLessons * 100);
-    const heroCopy = {
-      1:['先让琴发出好声音，再解释声音背后的道理。','你不需要“应该已经知道”任何东西。每个概念都会先让手和耳朵体验，再解释它为什么存在、在吉他上到底在哪里。'],
-      2:['先把和弦按清楚，再把无效动作一点点拿掉。','从读图、单独发声到保留指和领路手指，转换速度会从稳定动作里自然长出来。'],
-      3:['让右手持续走，让和弦落进稳定的时间。','先感受拍和小节，再用持续的下上运动建立节奏；不发声的位置，时间也不会停止。']
-    }[next.stage];
     breadcrumb.textContent = '学习首页';
     main.innerHTML = `<div class="page">
       <section class="dashboard-hero">
         <div>
-          <div class="eyebrow">当前学习 · 第 ${next.stage} 阶段</div>
-          <h1>${heroCopy[0]}</h1>
-          <p>${heroCopy[1]}</p>
+          <div class="eyebrow">零基础 · 从第一步开始</div>
+          <h1>先让琴发出好声音，再解释声音背后的道理。</h1>
+          <p>你不需要“应该已经知道”任何东西。每个概念都会先让手、眼睛和耳朵体验，再解释它为什么存在、在吉他上到底在哪里。</p>
           <div class="hero-actions">
-            <a class="primary-button" href="#/lesson/${next.id}">继续：第 ${next.number} 课</a>
+            <a class="primary-button" href="#/lesson/1-1">从第 1 课开始</a>
+            <a class="secondary-button" href="#/course">自己选择一课</a>
             <a class="secondary-button" href="#/practice">生成今日练习</a>
           </div>
         </div>
-        <div class="hero-meter"><div class="meter-ring"><div><strong>${percent}%</strong><small>总课程</small></div></div><div>${count} / ${course.totalLessons} 课</div></div>
       </section>
 
       <div class="stat-grid">
-        <div class="stat-card"><small>下一课</small><strong>${next.title}</strong></div>
-        <div class="stat-card"><small>建议用时</small><strong>${next.duration} 分钟</strong></div>
-        <div class="stat-card"><small>第 ${next.stage} 阶段进度</small><strong>${state.completed.filter(id => id.startsWith(`${next.stage}-`)).length} / ${activeStageLessons.length}</strong></div>
+        <div class="stat-card"><small>完整正文</small><strong>17 节课</strong></div>
+        <div class="stat-card"><small>已开放</small><strong>3 个阶段</strong></div>
+        <div class="stat-card"><small>单次练习</small><strong>20–60 分钟</strong></div>
       </div>
 
       <section class="section">
@@ -123,7 +85,7 @@
     const stage = course.stages.find(item => item.id === Number(stageId)) || course.stages[0];
     const available = stage.id <= 3;
     const availableLessons = stageLessons(stage.id);
-    const nextInStage = availableLessons.find(item => !state.completed.includes(item.id)) || availableLessons[0];
+    const firstInStage = availableLessons[0];
     return `<div class="card stage-detail" id="stage-detail">
       <span class="tag">阶段 ${String(stage.id).padStart(2,'0')} · ${stage.tone}</span>
       <h2 style="margin-top:14px">${stage.title}</h2>
@@ -131,18 +93,17 @@
       <div class="lesson-mini-list">
         ${stage.lessons.map((title,index) => {
           const id = `${stage.id}-${index+1}`;
-          const done = state.completed.includes(id);
-          return available ? `<a class="${done?'done':''}" href="#/lesson/${id}"><span class="lesson-dot">${done?'✓':index+1}</span>${title}</a>` : `<span><span class="lesson-dot">${index+1}</span>${title}</span>`;
+          return available ? `<a href="#/lesson/${id}"><span class="lesson-dot">${index+1}</span>${title}</a>` : `<span><span class="lesson-dot">${index+1}</span>${title}</span>`;
         }).join('')}
       </div>
-      ${available ? `<a class="primary-button" style="width:100%;margin-top:18px" href="#/lesson/${nextInStage.id}">进入阶段</a>` : '<p class="tiny muted" style="margin-top:18px">课程体系已规划；正文将在后续开发中按知识依赖逐步开放。</p>'}
+      ${available ? `<a class="primary-button" style="width:100%;margin-top:18px" href="#/lesson/${firstInStage.id}">从本阶段第 1 课开始</a>` : '<p class="tiny muted" style="margin-top:18px">课程体系已规划；正文将在后续开发中按知识依赖逐步开放。</p>'}
     </div>`;
   }
 
   function renderCourse() {
     const query = location.hash.split('?')[1];
     const params = new URLSearchParams(query || '');
-    const selected = Number(params.get('stage') || currentLesson().stage);
+    const selected = Number(params.get('stage') || 1);
     breadcrumb.textContent = '完整课程 · 24 阶段';
     main.innerHTML = `<div class="page">
       ${pageIntro('Course map','完整课程路线','120 节课被组织为 24 个阶段。顺序不是按术语难度排列，而是按“先能在琴上体验，再解释为什么”排列。')}
@@ -150,8 +111,7 @@
         <div class="section-heading"><div><div class="eyebrow">Available now</div><h2>已上线 · 前 3 个完整阶段</h2></div><span class="tag">17 节课可立即学习</span></div>
         <div class="stage-jump-nav">${course.stages.slice(0,3).map(stage => `<button data-jump-stage="${stage.id}">阶段 ${stage.id} · ${stage.tone}</button>`).join('')}</div>
         ${course.stages.slice(0,3).map(stage => `<div class="available-stage-group" id="available-stage-${stage.id}"><h3>第 ${stage.id} 阶段 · ${stage.title}</h3><div class="available-course-grid">${stageLessons(stage.id).map(lesson => {
-          const done = state.completed.includes(lesson.id);
-          return `<a class="available-lesson-card ${done?'done':''}" href="#/lesson/${lesson.id}"><span class="available-number">${done?'✓':String(lesson.number).padStart(2,'0')}</span><span><small>第 ${lesson.number} 课 · ${lesson.duration} 分钟</small><strong>${lesson.title}</strong></span><b>进入 →</b></a>`;
+          return `<a class="available-lesson-card" href="#/lesson/${lesson.id}"><span class="available-number">${String(lesson.number).padStart(2,'0')}</span><span><small>第 ${lesson.number} 课 · ${lesson.duration} 分钟</small><strong>${lesson.title}</strong></span><b>进入 →</b></a>`;
         }).join('')}</div></div>`).join('')}
       </section>
       <div class="course-layout section">
@@ -174,15 +134,46 @@
     }));
   }
 
+  const lessonChordSets = {
+    '2-1': ['Em'],
+    '2-2': ['C','Am'],
+    '2-3': ['Em','G'],
+    '2-4': ['D','Dm','A'],
+    '2-5': ['E','Em','C','G','D'],
+    '2-6': ['C','D','Dm','E','Em','G','A','Am']
+  };
+
+  function chordStartString(name) {
+    const firstSounding = ui.chordData[name].frets.findIndex(fret => fret >= 0);
+    return 6 - firstSounding;
+  }
+
+  function lessonChordGuide(lessonId) {
+    const names = lessonChordSets[lessonId];
+    if (!names) return '';
+    return `<section class="lesson-section lesson-chord-guide">
+      <div class="eyebrow">看图 + 听声音</div>
+      <h2>先看清手指，再把它放到琴上</h2>
+      <p class="muted">图中 1 = 食指、2 = 中指、3 = 无名指、4 = 小指；左边是粗 6 弦，右边是细 1 弦。橙色圆点是根音，○ 是空弦，× 是不弹。</p>
+      <div class="lesson-chord-grid">${names.map(name => {
+        const data = ui.chordData[name];
+        return `<article class="lesson-chord-card">
+          <div class="lesson-chord-title"><div><span>${data.cn}</span><h3>${name}</h3></div><span class="tag">从 ${chordStartString(name)} 弦弹</span></div>
+          <div class="lesson-chord-visual">${ui.chordSvg(name)}</div>
+          <div class="finger-steps">${ui.chordPositions(name).map(position=>`<span><b>${position.finger}</b>${position.text}</span>`).join('')}</div>
+          <button class="secondary-button chord-sound-button" data-play-lesson-chord="${name}" aria-label="播放 ${name} 和弦声音">▶ 听 ${name} 和弦</button>
+        </article>`;
+      }).join('')}</div>
+      <p class="audio-hint">建议：先听一次，再按图放手指；逐弦检查清楚后，再听一次并比较。</p>
+    </section>`;
+  }
+
   function renderLesson(id) {
     const lesson = lessons.find(item => item.id === id);
     if (!lesson) {
       main.innerHTML = `<div class="page narrow"><div class="empty-state"><h2>这节课仍在编写中</h2><p>完整位置已经放入课程路线。当前可完整学习前 3 个阶段的 17 节课。</p><a class="primary-button" href="#/course">返回课程目录</a></div></div>`;
       return;
     }
-    state.lastLesson = id;
-    saveState();
-    const done = state.completed.includes(id);
     const lessonIndex = lessons.findIndex(item => item.id === lesson.id);
     const previous = lessons[lessonIndex - 1];
     const next = lessons[lessonIndex + 1];
@@ -193,12 +184,13 @@
       <header class="lesson-header">
         <div class="lesson-meta"><span class="tag">第 ${lesson.stage} 阶段 · ${info.tone}</span><span>第 ${lesson.number} / ${inStage.length} 课</span><span>约 ${lesson.duration} 分钟</span></div>
         <h1 style="margin-top:16px">${lesson.title}</h1><p class="lede">${lesson.lead}</p>
-        <div class="lesson-progress"><div class="progress-meta"><span>${info.title}</span><strong>${lesson.number} / ${inStage.length}</strong></div><div class="progress-track"><span style="width:${lesson.number/inStage.length*100}%"></span></div></div>
       </header>
 
       <section class="lesson-section"><div class="eyebrow">你要搞懂什么</div><h2>完成后，你能够</h2><ul class="goal-list">${lesson.goals.map(item=>`<li>${item}</li>`).join('')}</ul></section>
 
       <section class="lesson-section"><div class="experiment"><div class="eyebrow" style="color:#e7bc78">Hands first</div><h2>${lesson.experiment.title}</h2><ol>${lesson.experiment.steps.map(item=>`<li>${item}</li>`).join('')}</ol><div class="finish-line"><strong>做到什么算完成：</strong>${lesson.experiment.finish}</div></div></section>
+
+      ${lessonChordGuide(lesson.id)}
 
       <section class="lesson-section"><div class="eyebrow">核心概念</div><h2>给刚才的体验一个名字</h2><div class="concept-grid">${lesson.concepts.map(concept=>`<article class="concept-card"><h3>${concept.term}</h3><dl class="concept-lines"><dt>它是什么</dt><dd>${concept.plain}</dd><dt>为什么需要</dt><dd>${concept.why}</dd><dt>在吉他上</dt><dd>${concept.guitar}</dd></dl></article>`).join('')}</div></section>
 
@@ -212,7 +204,7 @@
         <div class="memory-card later"><h3>以后再学</h3><p>${lesson.later}</p></div>
       </div></section>
 
-      <section class="lesson-section"><div class="eyebrow">今日练习</div><h2>练完，而不是看完</h2><div class="card practice-list">${lesson.practice.map((item,index)=>`<div class="practice-row"><strong>${item[0]}</strong><label for="practice-${id}-${index}">${item[1]}</label><input id="practice-${id}-${index}" type="checkbox" data-practice-check="${id}-${index}" ${state.practiceChecks[`${id}-${index}`]?'checked':''}></div>`).join('')}</div></section>
+      <section class="lesson-section"><div class="eyebrow">今日练习</div><h2>练完，而不是看完</h2><div class="card practice-list">${lesson.practice.map((item,index)=>`<div class="practice-row"><strong>${item[0]}</strong><label for="practice-${id}-${index}">${item[1]}</label><input id="practice-${id}-${index}" type="checkbox"></div>`).join('')}</div></section>
 
       <section class="lesson-section"><div class="eyebrow">自测</div><h2>不看上文，试着回答</h2>${lesson.quiz.map((quiz,index)=>`<div class="quiz-card" data-quiz="${index}"><fieldset><legend>${index+1}. ${quiz.q}</legend><div class="quiz-options">${quiz.options.map((option,choice)=>`<label class="quiz-option"><input type="radio" name="quiz-${id}-${index}" value="${choice}" data-answer="${quiz.answer}"><span>${option}</span></label>`).join('')}</div></fieldset><div class="quiz-result" data-correct-text="${ui.escapeHtml(quiz.explain)}"></div></div>`).join('')}</section>
 
@@ -220,7 +212,7 @@
 
       <footer class="lesson-footer">
         ${previous?`<a class="secondary-button" href="#/lesson/${previous.id}">← 上一课</a>`:'<a class="secondary-button" href="#/course">← 课程目录</a>'}
-        <button class="primary-button complete-button ${done?'done':''}" id="complete-lesson">${done?'✓ 已完成':'标记本课已完成'}</button>
+        ${lesson.stage===2?'<a class="primary-button" href="#/chords">打开完整和弦实验室</a>':''}
         ${next?`<a class="secondary-button" href="#/lesson/${next.id}">下一课 →</a>`:'<a class="secondary-button" href="#/practice">今日练习 →</a>'}
       </footer>
     </article>`;
@@ -233,9 +225,15 @@
   }
 
   function bindLessonEvents(lesson) {
-    document.querySelectorAll('[data-practice-check]').forEach(input => input.addEventListener('change', () => {
-      state.practiceChecks[input.dataset.practiceCheck] = input.checked;
-      saveState();
+    document.querySelectorAll('[data-play-lesson-chord]').forEach(button => button.addEventListener('click', () => {
+      ui.playChord(button.dataset.playLessonChord);
+      button.classList.add('playing');
+      button.textContent = `♪ 正在播放 ${button.dataset.playLessonChord}`;
+      setTimeout(() => {
+        if (!button.isConnected) return;
+        button.classList.remove('playing');
+        button.textContent = `▶ 听 ${button.dataset.playLessonChord} 和弦`;
+      }, 1450);
     }));
     document.querySelectorAll('.quiz-card input').forEach(input => input.addEventListener('change', () => {
       const card = input.closest('.quiz-card');
@@ -244,15 +242,6 @@
       result.className = `quiz-result show ${correct?'correct':'wrong'}`;
       result.textContent = correct ? `回答正确。${result.dataset.correctText}` : `再想一步。${result.dataset.correctText}`;
     }));
-    document.getElementById('complete-lesson').addEventListener('click', event => {
-      const done = state.completed.includes(lesson.id);
-      if (done) state.completed = state.completed.filter(id => id !== lesson.id);
-      else state.completed.push(lesson.id);
-      saveState();
-      event.currentTarget.classList.toggle('done', !done);
-      event.currentTarget.textContent = done ? '标记本课已完成' : '✓ 已完成';
-      showToast(done ? '已取消完成标记' : '做得好，学习进度已保存');
-    });
   }
 
   function renderFretboard() {
@@ -299,6 +288,7 @@
     const data = ui.chordData[name];
     return `<div class="chord-display"><div>${ui.chordSvg(name)}<button class="secondary-button" style="width:100%" id="play-chord" data-chord-play="${name}">▶ 听和弦</button></div><div>
       <span class="tag">${data.cn}</span><h2 style="margin-top:12px">${data.full}</h2>
+      <h3>手指放置</h3><div class="finger-steps">${ui.chordPositions(name).map(position=>`<span><b>${position.finger}</b>${position.text}</span>`).join('')}</div>
       <div class="fact-grid"><div class="fact"><small>组成音</small><strong>${data.notes}</strong></div><div class="fact"><small>音程结构</small><strong>${data.formula}</strong></div></div>
       <h3 style="margin-top:22px">六根弦实际发出的音</h3><div class="sounding-strings">${data.sounded.map((note,i)=>`<span class="${note==='X'?'muted-string':''}">${6-i}弦<br><strong>${note}</strong></span>`).join('')}</div>
       <div class="why-box" style="margin-top:20px"><strong>为什么这样按仍是 ${name} 和弦？</strong><br>${data.reason}</div>
@@ -319,8 +309,9 @@
     const button = document.getElementById('play-chord');
     if (!button) return;
     button.addEventListener('click', () => {
-      const data = ui.chordData[button.dataset.chordPlay];
-      data.frets.forEach((fret, stringIndex) => { if (fret >= 0) ui.playTone(ui.openMidi[5-stringIndex] + fret, 1.25, .055, stringIndex*.07); });
+      ui.playChord(button.dataset.chordPlay);
+      button.textContent = '♪ 正在播放';
+      setTimeout(() => { if (button.isConnected) button.textContent = '▶ 听和弦'; }, 1450);
     });
   }
 
@@ -417,12 +408,14 @@
     }
   };
 
-  function renderPractice(minutes=state.practiceMinutes) {
-    state.practiceMinutes=minutes;saveState();breadcrumb.textContent='今日练习';
-    const next=currentLesson();
-    const plan=practicePlansByStage[next.stage][minutes];
-    main.innerHTML=`<div class="page narrow">${pageIntro('Daily practice','今天练什么','方案会随学习阶段改变：初期重发声，中期重和弦转换，进入节奏阶段后再增加持续右手与歌曲循环。')}<div class="card section"><span class="tag">当前：第 ${next.stage} 阶段 · 第 ${next.number} 课</span><h2 style="margin-top:12px">${next.title}</h2><p class="muted">选择今天实际拥有的时间，不需要为了“完整”勉强练满一小时。</p><div class="practice-time-picker">${[20,30,45,60].map(n=>`<button class="time-button ${n===Number(minutes)?'active':''}" data-minutes="${n}">${n} 分钟</button>`).join('')}</div></div><section class="section"><div class="section-heading"><h2>${minutes} 分钟方案</h2><span class="tag">合计 ${minutes} 分钟</span></div><div class="daily-plan">${plan.map((item,i)=>`<label class="plan-item"><span class="plan-time">${item[0]}</span><span><strong>${item[1]}</strong><small class="muted">${i===plan.length-1?'结束前放松双手，不带着紧张离开。':'完成质量优先，不追求速度。'}</small></span><input type="checkbox"></label>`).join('')}</div></section><div class="lesson-footer"><a class="secondary-button" href="#/lesson/${next.id}">回到当前课</a><button class="primary-button" id="finish-practice">完成今日练习</button></div></div>`;
-    document.querySelectorAll('[data-minutes]').forEach(button=>button.addEventListener('click',()=>renderPractice(Number(button.dataset.minutes))));
+  function renderPractice(minutes=30, stageNumber=1) {
+    const stage = Math.min(3, Math.max(1, Number(stageNumber)));
+    const stageFirstLesson = stageLessons(stage)[0];
+    const plan=practicePlansByStage[stage][minutes];
+    breadcrumb.textContent='今日练习';
+    main.innerHTML=`<div class="page narrow">${pageIntro('Daily practice','今天练什么','先选择你正在学的阶段，再选择今天实际拥有的时间。这里不判断进度，只给你一份可立即照做的练习单。')}<div class="card section"><span class="tag">选择练习重点</span><h2 style="margin-top:12px">第 ${stage} 阶段 · ${stageInfo(stage).title}</h2><div class="practice-time-picker">${[1,2,3].map(n=>`<button class="time-button ${n===stage?'active':''}" data-practice-stage="${n}">阶段 ${n}</button>`).join('')}</div><p class="muted" style="margin-top:18px">再选择今天的练习时长，不需要为了“完整”勉强练满一小时。</p><div class="practice-time-picker">${[20,30,45,60].map(n=>`<button class="time-button ${n===Number(minutes)?'active':''}" data-minutes="${n}">${n} 分钟</button>`).join('')}</div></div><section class="section"><div class="section-heading"><h2>${minutes} 分钟方案</h2><span class="tag">合计 ${minutes} 分钟</span></div><div class="daily-plan">${plan.map((item,i)=>`<label class="plan-item"><span class="plan-time">${item[0]}</span><span><strong>${item[1]}</strong><small class="muted">${i===plan.length-1?'结束前放松双手，不带着紧张离开。':'完成质量优先，不追求速度。'}</small></span><input type="checkbox"></label>`).join('')}</div></section><div class="lesson-footer"><a class="secondary-button" href="#/lesson/${stageFirstLesson.id}">打开本阶段第 1 课</a><button class="primary-button" id="finish-practice">完成今日练习</button></div></div>`;
+    document.querySelectorAll('[data-minutes]').forEach(button=>button.addEventListener('click',()=>renderPractice(Number(button.dataset.minutes),stage)));
+    document.querySelectorAll('[data-practice-stage]').forEach(button=>button.addEventListener('click',()=>renderPractice(Number(minutes),Number(button.dataset.practiceStage))));
     document.getElementById('finish-practice').addEventListener('click',()=>showToast('今天的练习已完成。停在质量好的地方。'));
   }
 
@@ -446,8 +439,7 @@
     const [route,param] = routeParts();
     document.body.classList.remove('nav-open');
     setActiveNav(route==='lesson'?'course':route);
-    ({home:renderHome,course:renderCourse,lesson:()=>renderLesson(param),fretboard:renderFretboard,chords:renderChords,rhythm:renderRhythm,map:renderMap,practice:()=>renderPractice(state.practiceMinutes),glossary:renderGlossary}[route] || renderNotFound)();
-    updateGlobalProgress();
+    ({home:renderHome,course:renderCourse,lesson:()=>renderLesson(param),fretboard:renderFretboard,chords:renderChords,rhythm:renderRhythm,map:renderMap,practice:()=>renderPractice(),glossary:renderGlossary}[route] || renderNotFound)();
     window.scrollTo(0,0);
   }
 
