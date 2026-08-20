@@ -24,6 +24,7 @@
 
   function playTone(midi, duration = .75, volume = .12, delay = 0) {
     const ctx = getAudioContext();
+    if (ctx.state === 'suspended') ctx.resume();
     const start = ctx.currentTime + delay;
     const oscillator = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -35,6 +36,41 @@
     oscillator.connect(gain).connect(ctx.destination);
     oscillator.start(start);
     oscillator.stop(start + duration + .03);
+  }
+
+  // 用快速衰减的基音与泛音模拟拨弦，比单一持续波形更接近吉他的听感。
+  function playPluckedTone(midi, duration = 1.7, volume = .065, delay = 0) {
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') ctx.resume();
+    const start = ctx.currentTime + delay;
+    const frequency = frequencyFromMidi(midi);
+    const filter = ctx.createBiquadFilter();
+    const bodyGain = ctx.createGain();
+    const fundamental = ctx.createOscillator();
+    const overtone = ctx.createOscillator();
+    const overtoneGain = ctx.createGain();
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(3200, start);
+    filter.frequency.exponentialRampToValueAtTime(850, start + duration);
+    fundamental.type = 'triangle';
+    fundamental.frequency.setValueAtTime(frequency, start);
+    overtone.type = 'sine';
+    overtone.frequency.setValueAtTime(frequency * 2.01, start);
+
+    bodyGain.gain.setValueAtTime(.0001, start);
+    bodyGain.gain.exponentialRampToValueAtTime(volume, start + .008);
+    bodyGain.gain.exponentialRampToValueAtTime(.0001, start + duration);
+    overtoneGain.gain.setValueAtTime(volume * .32, start);
+    overtoneGain.gain.exponentialRampToValueAtTime(.0001, start + Math.min(.55, duration));
+
+    fundamental.connect(filter);
+    overtone.connect(overtoneGain).connect(filter);
+    filter.connect(bodyGain).connect(ctx.destination);
+    fundamental.start(start);
+    overtone.start(start);
+    fundamental.stop(start + duration + .03);
+    overtone.stop(start + duration + .03);
   }
 
   function playClick(accent) {
@@ -188,6 +224,31 @@
     Am: { full:'A Minor', cn:'A 小三和弦', notes:'A · C · E', formula:'根音 + 小三度 + 纯五度', frets:[-1,0,2,2,1,0], fingers:[0,0,2,3,1,0], sounded:['X','A','E','A','C','E'], roots:[1,3], reason:'A 到 C 是小三度；与 E 组成 A、C、E，因此是 A 小三和弦。' }
   };
 
+  const fingerNames = ['','食指','中指','无名指','小指'];
+
+  function chordPositions(name) {
+    const data = chordData[name];
+    if (!data) return [];
+    if (data.barre) {
+      return [{finger:1, text:`食指横按第 ${data.barre} 品`}, ...data.frets.map((fret, index) => {
+        const finger = data.fingers[index];
+        return fret > data.barre && finger > 1 ? {finger, text:`${fingerNames[finger]}：${6-index} 弦 ${fret} 品`} : null;
+      }).filter(Boolean)];
+    }
+    return data.frets.map((fret, index) => {
+      const finger = data.fingers[index];
+      return fret > 0 && finger ? {finger, text:`${fingerNames[finger]}：${6-index} 弦 ${fret} 品`} : null;
+    }).filter(Boolean);
+  }
+
+  function playChord(name) {
+    const data = chordData[name];
+    if (!data) return;
+    data.frets.forEach((fret, stringIndex) => {
+      if (fret >= 0) playPluckedTone(openMidi[5-stringIndex] + fret, 1.8, .058, stringIndex * .065);
+    });
+  }
+
   function chordSvg(name) {
     const data = chordData[name];
     const xPositions = [40,72,104,136,168,200];
@@ -228,6 +289,6 @@
     return `<div class="fretboard-wrap"><div class="fretboard">${rows}</div><div class="fret-numbers">${numbers}</div></div>`;
   }
 
-  window.GuitarComponents = { noteNames, flatNames, openMidi, chordData, chordSvg, renderFretboard, renderLessonDiagram, playTone, playClick, escapeHtml, noteFromMidi };
+  window.GuitarComponents = { noteNames, flatNames, openMidi, chordData, chordSvg, chordPositions, playChord, renderFretboard, renderLessonDiagram, playTone, playClick, escapeHtml, noteFromMidi };
 })();
 
